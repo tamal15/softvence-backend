@@ -30,6 +30,19 @@ async function run() {
         const database = client.db('Overseas');
         const homeProjectCollection = database.collection('HomeProject');
 
+
+        app.get("/getbannerdata", async (req, res) => {
+            const result = await homeProjectCollection.find({}).toArray();
+            res.json(result);
+          });
+
+          app.get("/editbaners/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const user = await bannerpostCollection.findOne(query);
+            res.json(user);
+          });
+
     }
     finally {
 
